@@ -1,0 +1,150 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card title">
+                <div class="card-body text-center ">
+                    <h2>EDMI DEVICES</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>{{ action | uppercase}} DEVICE</h4>
+                        <form [formGroup]="form" (ngSubmit)="saveDevice()">
+                            <div class="form-group mb-3" style="text-align: start;">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-barcode"></i>
+                                    </span>
+                                    <input formControlName="serialNumber" type="text" class="form-control" placeholder="Serial Number" maxlength="20">
+                                </div>
+                                    <span class="text-danger ml-2" *ngIf="form.controls['serialNumber'].errors?.required && form.controls['serialNumber'].touched">
+                                        Serial Number <strong>is required</strong>
+                                    </span>  
+                                    <span class="text-danger ml-2" *ngIf="form.controls['serialNumber'].errors?.maxlength && form.controls['serialNumber'].touched">
+                                        Serial Number must have a maximum of <strong> 20 characters</strong>
+                                    </span>                              
+                            </div>
+                            <div class="form-group mb-3" style="text-align: start;">
+                                <div class="input-group input-group-lg mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </span>
+                                    <select formControlName="type" class="form-select" placeholder="Type">
+                                        <option disabled [ngValue]="null">Select device type</option>
+                                        <option *ngFor="let type of allTypes" [ngValue]="type.typeDescription">
+                                        {{ type.typeDescription }}
+                                        </option>                                 
+                                    </select>
+                                </div> 
+                                    <span class="text-danger ml-2" *ngIf="form.controls['type'].errors?.required && form.controls['type'].touched">
+                                        Device type <strong>is required</strong>
+                                    </span>  
+                            </div>
+                            <div class="form-group mb-3" style="text-align: start;">
+                                <div class="input-group input-group-lg mb-3">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-laptop-code"></i>
+                                    </span>
+                                    <input formControlName="firmwareVersion" type="text" class="form-control" placeholder="Firmware Version" maxlength="20">
+                                </div>                             
+                                <span class="text-danger ml-2" *ngIf="form.controls['firmwareVersion'].errors?.maxlength && form.controls['firmwareVersion'].touched">
+                                    Firmware firmwareVersion must have a maximum of <strong> 20 characters</strong>
+                                </span>
+                            </div>
+                            <div class="input-group input-group-lg mb-3">
+                                <span class="input-group-text">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+                                <select formControlName="state" class="form-select" placeholder="State">
+                                    <option disabled [ngValue]="null">Select device state</option>
+                                    <option *ngFor="let state of allStates" [ngValue]="state.stateDescription">
+                                     {{ state.stateDescription }}
+                                    </option>
+                                  </select>
+                            </div>                                                      
+                            <div class="row" *ngIf="form.value.type == 'Gateway'">
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-3" style="text-align: start;">
+                                        <div class="input-group input-group-lg mb-3">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-network-wired"></i>
+                                            </span>
+                                            <input formControlName="ip" type="text" class="form-control" placeholder="IP" maxlength="20">
+                                        </div>
+                                        <span class="text-danger ml-2" *ngIf="form.controls['ip'].errors?.maxlength && form.controls['ip'].touched">
+                                            IP must have a maximum of <strong> 20 characters</strong>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-3" style="text-align: start;">
+                                        <div class="input-group input-group-lg mb-3">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-project-diagram"></i>
+                                            </span>
+                                            <input formControlName="port" type="text" class="form-control" placeholder="Port" maxlength="4">
+                                        </div>
+                                    </div>
+                                    <span class="text-danger ml-2" *ngIf="form.controls['port'].errors?.maxlength && form.controls['port'].touched">
+                                        Port must have a maximum of <strong> 4 characters</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <button [disabled]="this.form.invalid" type="submit" class="btn btn-success btn-lg col-5 m-2">Aceptar</button>
+                                <button type="button" class="btn btn-secondary btn-lg col-5 m-2" (click)="resetForm()">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+
+        <div class="row mt-4" *ngIf="deviceList.length > 0">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>DEVICE LIST</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>Type</th>
+                                    <th>Firmware</th>
+                                    <th>State</th>
+                                    <th>IP</th>
+                                    <th>Port</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                              </thead>
+                            <tbody>
+                                <tr *ngFor = "let device of deviceList">
+                                    <td>{{device.serialNumber | uppercase}}</td>
+                                    <td>{{device.type}}</td>
+                                    <td>{{device.firmwareVersion}}</td>
+                                    <td>{{device.state}}</td>
+                                    <td>{{device.ip}}</td>
+                                    <td>{{device.port}}</td>
+                                    <td>
+                                        <i (click)="editDevice(device)"  class="far fa-edit text-info"></i>                                        
+                                    </td>
+                                    <td>
+                                        <i (click)="deleteDevice(device.id)" class="far fa-trash-alt text-danger"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                
+            </div> 
+        </div>                   
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="sidenav">
+    <div class="login-main-text">
+       <h2><strong>EDMI METERS</strong> <br> Login Page</h2>
+       <p>Álvaro Muñoz Dominguez</p>
+    </div>
+  </div>
+  <div class="main">
+    <div class="col-md-6 col-sm-12">
+       <div class="login-form">
+        <form [formGroup]="login" (ngSubmit)= "log()">
+             <div  class="form-group margin">
+                <label>User Name</label>
+                <input type="text" class="form-control" placeholder="User Name"  formControlName="user">
+                <span class="text-danger ml-10" *ngIf="login.controls['user'].errors?.required && login.controls['user'].touched">
+                    User name <strong>is required</strong>
+                </span>
+             </div>
+             <div class="form-group margin">
+                <label>Password</label>
+                <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                <span class="text-danger ml-2" *ngIf="login.controls['password'].errors?.required && login.controls['password'].touched">
+                    Password <strong>is required</strong>
+                </span>
+             </div>
+             <button type="submit" class="btn btn-black" [disabled]="login.invalid">Login</button>
+          </form>
+       </div>
+    </div>
+  </div>
