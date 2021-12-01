@@ -29,6 +29,10 @@ export class DeviceService {
   }
 
   updateDevice(id:number, device: Device): Observable<any>{
+    if(device.type !== 'Gateway'){
+      device.ip = undefined;
+      device.port = undefined;
+    }
     return this.http.put(this.myAppUrl + this.myApiUrl + id, device);
   }
 }
