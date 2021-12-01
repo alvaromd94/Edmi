@@ -62,9 +62,10 @@ body {
 .login-main-text h2{
     font-weight: 300;
 }
-.btn-black{
+.btn-login{
     background-color:rgb(61, 120, 131) !important;
     color: #fff;
+    margin-right: 10px;
 }
 .margin{
     margin-bottom: 20px;

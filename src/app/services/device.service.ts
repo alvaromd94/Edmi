@@ -8,7 +8,10 @@ import { Device } from '../models/device.model';
   providedIn: 'root'
 })
 export class DeviceService {
-  private myAppUrl = environment.production;
+  //LOCAL: 
+  // private myAppUrl = 'https://localhost:44356/api';
+  //PROD:
+  private myAppUrl = 'https://edmibackend20211130223350.azurewebsites.net/api';
   private myApiUrl = '/device/'
 
   constructor(private http: HttpClient) { }

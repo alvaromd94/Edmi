@@ -100,6 +100,9 @@
                                 <button [disabled]="this.form.invalid" type="submit" class="btn btn-success btn-lg col-5 m-2">Aceptar</button>
                                 <button type="button" class="btn btn-secondary btn-lg col-5 m-2" (click)="resetForm()">Reset</button>
                             </div>
+                            <div style="text-align: center;" class="row">
+                                <app-loading *ngIf="loading"></app-loading>
+                            </div>
                         </form>
                     </div>
                 </div>

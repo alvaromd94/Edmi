@@ -14,6 +14,7 @@ export class DeviceComponent implements OnInit {
   action = "add";
   deviceList: any[] = [];
   id: number | undefined;
+  loading:boolean = false;
 
   allTypes:any[] = [
     {value: 1, typeDescription: 'Electric meter'},
@@ -50,16 +51,19 @@ export class DeviceComponent implements OnInit {
   }
 
   getDevice(){
+    this.loading = true;
     this._deviceService.getDeviceList().subscribe(data => {
       console.log(data);
       this.deviceList = data;
+      this.loading = false;
     }, error => {
       this.toastr.error('Unable to recover data', 'Error');
+      this.loading = false;
     })
   }
 
   saveDevice(){
-    
+    this.loading = true;
     const device:Device = {
       serialNumber: this.form.get('serialNumber')?.value ,
       firmwareVersion: this.form.get('firmwareVersion')?.value ,
@@ -75,11 +79,14 @@ export class DeviceComponent implements OnInit {
         this.toastr.success('Device has been successfully saved', 'Saved device');
         this.getDevice();
         this.form.reset();
+        this.loading = false;
       }, error => {
         this.toastr.error(error.error.message, 'Error');
+        this.loading = false;
       })        
     }
     else{
+      this.loading = true;
       //Edit device
       device.id = this.id;
       this._deviceService.updateDevice(this.id, device).subscribe(data =>{
@@ -88,8 +95,10 @@ export class DeviceComponent implements OnInit {
         this.id = undefined;
         this.toastr.success('Device has been successfully updated', 'Updated device');
         this.getDevice();
+        this.loading = false;
       }, error => {
         this.toastr.error(error.error.message, 'Error');
+        this.loading = false;
       })
     }
   }
@@ -102,11 +111,14 @@ export class DeviceComponent implements OnInit {
   }
 
   deleteDevice(id: number){
+    this.loading = true;
     this._deviceService.deleteDevice(id).subscribe(data => {
       this.toastr.success('Device has been successfully removed', 'Device removed');
       this.resetForm();
+      this.loading = false;
     }, error => {
       this.toastr.error('The device has not been deleted correctly', 'Error');
+      this.loading = false;
     })
   }
 

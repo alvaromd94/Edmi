@@ -22,7 +22,11 @@
                     Password <strong>is required</strong>
                 </span>
              </div>
-             <button type="submit" class="btn btn-black" [disabled]="login.invalid">Login</button>
+             <div class="row">
+                
+             </div>
+             <button type="submit" class="btn btn-login" [disabled]="login.invalid">Login</button>
+             <app-loading *ngIf="loading"></app-loading>
           </form>
        </div>
     </div>
