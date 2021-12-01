@@ -32,9 +32,11 @@ EDMI APP - ALVARO MUÑOZ DOMINGUEZ
 
 INSTALACIÓN EN LOCAL
 Se ha usado net core + Angular + Sql Server
+
 Si se desea ejecutar y probar la aplicación en local hay que realizar los siguientes pasos:
+
 1.- descargar proyecto backend desde github: https://github.com/alvaromd94/EdmiBackend.git
-2.- descargar proyecto frontend desde github:
+2.- descargar proyecto frontend desde github: https://github.com/alvaromd94/Edmi.git
 3.- descargar fichero sql y lanzarlo en sql server para obtener la misma BD (si se desea):
 4.- ejecutar el backend desde visual studio. Copiar la ruta que genere al ejecutar el proyecto.
 5.- Pegar la ruta en la aplicación Angular > device.service.ts sustituyéndola por private myAppUrl = 'https://edmibackend20211130223350.azurewebsites.net/api';
